@@ -1,0 +1,914 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{statistics}
+\author{}
+\date{\vspace{-2.5em}}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={statistics},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{working-with-data-in-r-environment}{%
+\subsection{Working with data in R
+environment}\label{working-with-data-in-r-environment}}
+
+\hypertarget{a-consider-chi-square-distribution}{%
+\subsubsection{a: consider Chi-Square
+distribution}\label{a-consider-chi-square-distribution}}
+
+\hypertarget{i-the-density-function-of-it-is-shown-below}{%
+\paragraph{i: The density function of it is shown
+below:}\label{i-the-density-function-of-it-is-shown-below}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dchisq}\NormalTok{(x, }\AttributeTok{df =} \DecValTok{11}\NormalTok{), }\AttributeTok{from =} \DecValTok{0}\NormalTok{, }\AttributeTok{to =} \DecValTok{100}\NormalTok{,}
+      \AttributeTok{main =} \StringTok{\textquotesingle{}Chi{-}Square Distribution (df = 11)\textquotesingle{}}\NormalTok{, }\CommentTok{\#title}
+      \AttributeTok{ylab =} \StringTok{\textquotesingle{}Density\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/cars-1.pdf}
+
+\hypertarget{ii-lets-produce-n-10-100-and-1000-samples-of-size-50-from-this-distribution.-to-do-so-we-generate-n-50-samples-and-store-them-in-a-matrix-with-n-rows-and-50-columns.}{%
+\paragraph{ii: Let's produce n = 10, 100 and 1000 samples of size 50
+from this distribution. To do so, we generate n * 50 samples and store
+them in a matrix with n rows and 50
+columns.}\label{ii-lets-produce-n-10-100-and-1000-samples-of-size-50-from-this-distribution.-to-do-so-we-generate-n-50-samples-and-store-them-in-a-matrix-with-n-rows-and-50-columns.}}
+
+\hypertarget{for-n-10}{%
+\subparagraph{for n = 10:}\label{for-n-10}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samples\_1 }\OtherTok{=} \FunctionTok{rchisq}\NormalTok{(}\DecValTok{500}\NormalTok{, }\AttributeTok{df =} \DecValTok{11}\NormalTok{)}
+\NormalTok{matrix\_1 }\OtherTok{=}  \FunctionTok{matrix}\NormalTok{(samples\_1, }\AttributeTok{nrow =} \DecValTok{10}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{for-n-100}{%
+\subparagraph{for n = 100:}\label{for-n-100}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samples\_2 }\OtherTok{=} \FunctionTok{rchisq}\NormalTok{(}\DecValTok{5000}\NormalTok{, }\AttributeTok{df =} \DecValTok{11}\NormalTok{)}
+\NormalTok{matrix\_2 }\OtherTok{=}  \FunctionTok{matrix}\NormalTok{(samples\_2, }\AttributeTok{nrow =} \DecValTok{100}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{for-n-1000}{%
+\subparagraph{for n = 1000:}\label{for-n-1000}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samples\_3 }\OtherTok{=} \FunctionTok{rchisq}\NormalTok{(}\DecValTok{50000}\NormalTok{, }\AttributeTok{df =} \DecValTok{11}\NormalTok{)}
+\NormalTok{matrix\_3 }\OtherTok{=}  \FunctionTok{matrix}\NormalTok{(samples\_3, }\AttributeTok{nrow =} \DecValTok{1000}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{then-calculate-the-means-of-each-of-them-and-plot-their-histograms-note-that-we-should-calculate-the-sample-means-of-each-row}{%
+\subparagraph{Then calculate the means of each of them and plot their
+histograms (note that we should calculate the sample means of each
+row):}\label{then-calculate-the-means-of-each-of-them-and-plot-their-histograms-note-that-we-should-calculate-the-sample-means-of-each-row}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{means\_1 }\OtherTok{=} \FunctionTok{apply}\NormalTok{(matrix\_1, }\DecValTok{1}\NormalTok{, mean) }\CommentTok{\# use 1 to apply it row wise}
+\NormalTok{means\_2 }\OtherTok{=} \FunctionTok{apply}\NormalTok{(matrix\_2, }\DecValTok{1}\NormalTok{, mean)}
+\NormalTok{means\_3 }\OtherTok{=} \FunctionTok{apply}\NormalTok{(matrix\_3, }\DecValTok{1}\NormalTok{, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{plot-the-histograms-with-hist-function}{%
+\subparagraph{plot the histograms with hist
+function}\label{plot-the-histograms-with-hist-function}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(means\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(means\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-5-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(means\_3)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-5-3.pdf}
+
+\hypertarget{iii-lets-calculate-the-mean-and-variance-of-these-samples-and-compare-the-histogram-of-their-means-with-the-normal-distribution}{%
+\paragraph{iii: Let's calculate the mean and variance of these samples
+and compare the histogram of their means with the normal
+distribution:}\label{iii-lets-calculate-the-mean-and-variance-of-these-samples-and-compare-the-histogram-of-their-means-with-the-normal-distribution}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_1 }\OtherTok{=} \FunctionTok{mean}\NormalTok{(means\_1)}
+\NormalTok{mean\_2 }\OtherTok{=} \FunctionTok{mean}\NormalTok{(means\_2)}
+\NormalTok{mean\_3 }\OtherTok{=} \FunctionTok{mean}\NormalTok{(means\_3)}
+\NormalTok{mean\_1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11.13094
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11.02692
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.96826
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var\_1 }\OtherTok{=} \FunctionTok{var}\NormalTok{(means\_1)}
+\NormalTok{var\_2 }\OtherTok{=} \FunctionTok{var}\NormalTok{(means\_2)}
+\NormalTok{var\_3 }\OtherTok{=} \FunctionTok{var}\NormalTok{(means\_3)}
+\NormalTok{var\_1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4918401
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var\_2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4255638
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var\_3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4058518
+\end{verbatim}
+
+\hypertarget{next-normalize-the-means}{%
+\subparagraph{Next, normalize the
+means:}\label{next-normalize-the-means}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{normalized\_mean\_1 }\OtherTok{=}\NormalTok{ (means\_1 }\SpecialCharTok{{-}}\NormalTok{ mean\_1)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(var\_1)}
+\NormalTok{normalized\_mean\_2 }\OtherTok{=}\NormalTok{ (means\_2 }\SpecialCharTok{{-}}\NormalTok{ mean\_2)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(var\_2)}
+\NormalTok{normalized\_mean\_3 }\OtherTok{=}\NormalTok{ (means\_3 }\SpecialCharTok{{-}}\NormalTok{ mean\_3)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(var\_3)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{comapre-their-histogram-with-the-normal-dirtributions-hist}{%
+\subparagraph{comapre their histogram with the normal dirtribution's
+hist:}\label{comapre-their-histogram-with-the-normal-dirtributions-hist}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#hist(normalized\_mean\_1)}
+\CommentTok{\#lines(seq({-}2, 1.5, by=.001), dnorm(seq({-}2, 1.5, by=.001), mean\_1, sqrt(var\_1)), col="blue")}
+\CommentTok{\#hist(normalized\_mean\_2)}
+\CommentTok{\#lines(seq({-}3, 2.5, by=.1), dnorm(seq({-}3, 2.5, by=.1), mean\_2, sqrt(var\_2)), col="blue")}
+\CommentTok{\#hist(normalized\_mean\_3)}
+\CommentTok{\#lines(seq({-}4, 4, by=.1), dnorm(seq({-}4, 4, by=.1), mean\_3, sqrt(var\_3)), col="blue")}
+\FunctionTok{plotNormalHistogram}\NormalTok{( normalized\_mean\_1, }\AttributeTok{prob =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{length =} \DecValTok{1000}\NormalTok{ )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plotNormalHistogram}\NormalTok{( normalized\_mean\_2, }\AttributeTok{prob =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{length =} \DecValTok{1000}\NormalTok{ )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-8-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plotNormalHistogram}\NormalTok{( normalized\_mean\_3, }\AttributeTok{prob =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{length =} \DecValTok{1000}\NormalTok{ )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-8-3.pdf}
+
+\hypertarget{we-can-see-that-as-the-n-gets-larger-the-coresponding-histogram-gets-more-similar-to-the-histogram-of-normal-distribution.-this-results-is-algined-with-the-central-limit-theorem-which-states-that-if-you-have-a-population-with-mean-ux3bc-and-standard-deviation-ux3c3-and-take-sufficiently-large-random-samples-from-the-population-with-replacement-then-the-distribution-of-the-sample-means-will-be-approximately-normally-distributed.}{%
+\subparagraph{we can see that as the n gets larger, the coresponding
+histogram gets more similar to the histogram of normal distribution.
+This results is algined with the central limit theorem which states that
+if you have a population with mean μ and standard deviation σ and take
+sufficiently large random samples from the population with replacement ,
+then the distribution of the sample means will be approximately normally
+distributed.}\label{we-can-see-that-as-the-n-gets-larger-the-coresponding-histogram-gets-more-similar-to-the-histogram-of-normal-distribution.-this-results-is-algined-with-the-central-limit-theorem-which-states-that-if-you-have-a-population-with-mean-ux3bc-and-standard-deviation-ux3c3-and-take-sufficiently-large-random-samples-from-the-population-with-replacement-then-the-distribution-of-the-sample-means-will-be-approximately-normally-distributed.}}
+
+\hypertarget{b-consider-the-births-data-set-from-fastr2-package-contains-inforamtion-about-the-number-of-birth-in-each-day-during-a-time-interval-of-20-years-in-america}{%
+\subsubsection{b: consider the Births data set from fastR2 package
+(contains inforamtion about the number of birth in each day during a
+time interval of 20 years in
+America)}\label{b-consider-the-births-data-set-from-fastr2-package-contains-inforamtion-about-the-number-of-birth-in-each-day-during-a-time-interval-of-20-years-in-america}}
+
+\hypertarget{i-find-the-days-with-least-and-most-number-of-average-births}{%
+\paragraph{i: Find the days with least and most number of average
+births:}\label{i-find-the-days-with-least-and-most-number-of-average-births}}
+
+\hypertarget{first-lets-view-births}{%
+\subparagraph{first let's view Births}\label{first-lets-view-births}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{View}\NormalTok{(Births)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{we-can-see-that-it-has-a-column-births-and-data-in-it.-we-iterate-over-the-days-in-those-years-find-the-mean-number-of-births-and-use-which-to-indicate-the-place-minmax-occurs.}{%
+\subparagraph{we can see that it has a column births and data in it. We
+iterate over the days in those years, find the mean number of births and
+use which to indicate the place min/max
+occurs.}\label{we-can-see-that-it-has-a-column-births-and-data-in-it.-we-iterate-over-the-days-in-those-years-find-the-mean-number-of-births-and-use-which-to-indicate-the-place-minmax-occurs.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{days\_avr }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{365}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{365}\NormalTok{) \{}
+\NormalTok{  days\_avr[i] }\OtherTok{=} \FunctionTok{mean}\NormalTok{(Births}\SpecialCharTok{$}\NormalTok{births[Births}\SpecialCharTok{$}\NormalTok{day\_of\_year }\SpecialCharTok{==}\NormalTok{ i])}
+\NormalTok{\}}
+
+\FunctionTok{which.min}\NormalTok{(days\_avr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 360
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{which.max}\NormalTok{(days\_avr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 260
+\end{verbatim}
+
+\hypertarget{the-mean-value-of-each-month-is-obtained-as-follows}{%
+\paragraph{the mean value of each month is obtained as
+follows:}\label{the-mean-value-of-each-month-is-obtained-as-follows}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{months\_means }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{12}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{) \{}
+\NormalTok{  months\_means[i] }\OtherTok{=} \FunctionTok{mean}\NormalTok{(Births}\SpecialCharTok{$}\NormalTok{births[Births}\SpecialCharTok{$}\NormalTok{month }\SpecialCharTok{==}\NormalTok{ i])}
+\NormalTok{\}}
+\NormalTok{months\_means}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]     [,2]     [,3]     [,4] [,5]     [,6]     [,7]     [,8]
+## [1,] 9288.976 9491.301 9464.742 9267.958 9331 9597.618 10032.73 10177.04
+##          [,9]    [,10]    [,11]    [,12]
+## [1,] 10343.29 9766.729 9492.122 9523.187
+\end{verbatim}
+
+\hypertarget{also-lets-sort-the-array-obove-ascending}{%
+\subparagraph{also lets sort the array obove
+(ascending):}\label{also-lets-sort-the-array-obove-ascending}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{order}\NormalTok{(months\_means)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  4  1  5  3  2 11 12  6 10  7  8  9
+\end{verbatim}
+
+\hypertarget{to-have-it-descending-consider}{%
+\subparagraph{to have it descending
+consider}\label{to-have-it-descending-consider}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{order}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{months\_means)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  9  8  7 10  6 12 11  2  3  5  1  4
+\end{verbatim}
+
+\hypertarget{also-find-the-average-value-of-each-year-this-way}{%
+\paragraph{also find the average value of each year this
+way:}\label{also-find-the-average-value-of-each-year-this-way}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{years\_avr }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+
+\CommentTok{\#colnames(years\_avr)=c(\textquotesingle{}1969\textquotesingle{}, \textquotesingle{}1970\textquotesingle{}, \textquotesingle{}1971\textquotesingle{}, \textquotesingle{}1972\textquotesingle{}, \textquotesingle{}1973\textquotesingle{}, \textquotesingle{}1974\textquotesingle{}, \textquotesingle{}1975\textquotesingle{}, \textquotesingle{}1976\textquotesingle{}, \textquotesingle{}1977\textquotesingle{}, \textquotesingle{}1978\textquotesingle{}, \textquotesingle{}1979\textquotesingle{}, \textquotesingle{}1980\textquotesingle{}, \textquotesingle{}1981\textquotesingle{}, \textquotesingle{}1982\textquotesingle{}, \textquotesingle{}1983\textquotesingle{}, \textquotesingle{}1984\textquotesingle{}, \textquotesingle{}1985\textquotesingle{}, \textquotesingle{}1986\textquotesingle{}, \textquotesingle{}1987\textquotesingle{}, \textquotesingle{}1988\textquotesingle{})}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{) \{}
+\NormalTok{  years\_avr[i] }\OtherTok{=} \FunctionTok{mean}\NormalTok{(Births}\SpecialCharTok{$}\NormalTok{births[Births}\SpecialCharTok{$}\NormalTok{year }\SpecialCharTok{==}\NormalTok{ i }\SpecialCharTok{+} \DecValTok{1968}\NormalTok{])}
+\NormalTok{\}}
+\NormalTok{years\_avr}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]    [,2]     [,3]     [,4]     [,5]    [,6]     [,7]     [,8]
+## [1,] 9859.118 10231.8 9761.847 8923.123 8618.274 8685.77 8639.359 8678.322
+##          [,9]    [,10]    [,11]    [,12]    [,13]    [,14]    [,15]    [,16]
+## [1,] 9128.899 9145.745 9588.321 9885.104 9960.219 10096.92 9980.085 10036.97
+##         [,17]    [,18]    [,19]   [,20]
+## [1,] 10315.22 10303.24 10447.15 10693.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# plot the result}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{u=}\DecValTok{1969}\SpecialCharTok{:}\DecValTok{1988}\NormalTok{,}\AttributeTok{v=}\FunctionTok{as.vector}\NormalTok{(years\_avr))}
+\NormalTok{       ,}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{u,}\AttributeTok{y=}\NormalTok{v))}\SpecialCharTok{+}\FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\hypertarget{c-consider-the-storms-data-set-from-dplyr-package.}{%
+\subsubsection{c: consider the storms data set from dplyr
+package.}\label{c-consider-the-storms-data-set-from-dplyr-package.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{View}\NormalTok{(storms)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{sort-them-based-on-the-time-they-occured-and-save-them-in-a-file-q1_3.txt}{%
+\paragraph{sort them based on the time they occured and save them in a
+file
+(q1\_3.txt)}\label{sort-them-based-on-the-time-they-occured-and-save-them-in-a-file-q1_3.txt}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sorted }\OtherTok{=} 
+\NormalTok{  storms[}\FunctionTok{with}\NormalTok{(storms, }\FunctionTok{order}\NormalTok{(storms}\SpecialCharTok{$}\NormalTok{year, storms}\SpecialCharTok{$}\NormalTok{month, storms}\SpecialCharTok{$}\NormalTok{day , storms}\SpecialCharTok{$}\NormalTok{hour)),]}
+\NormalTok{sorted}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 10,010 x 13
+##    name   year month   day  hour   lat  long status      category  wind pressure
+##    <chr> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <chr>       <ord>    <int>    <int>
+##  1 Amy    1975     6    27     0  27.5 -79   tropical d~ -1          25     1013
+##  2 Amy    1975     6    27     6  28.5 -79   tropical d~ -1          25     1013
+##  3 Amy    1975     6    27    12  29.5 -79   tropical d~ -1          25     1013
+##  4 Amy    1975     6    27    18  30.5 -79   tropical d~ -1          25     1013
+##  5 Amy    1975     6    28     0  31.5 -78.8 tropical d~ -1          25     1012
+##  6 Amy    1975     6    28     6  32.4 -78.7 tropical d~ -1          25     1012
+##  7 Amy    1975     6    28    12  33.3 -78   tropical d~ -1          25     1011
+##  8 Amy    1975     6    28    18  34   -77   tropical d~ -1          30     1006
+##  9 Amy    1975     6    29     0  34.4 -75.8 tropical s~ 0           35     1004
+## 10 Amy    1975     6    29     6  34   -74.8 tropical s~ 0           40     1002
+## # ... with 10,000 more rows, and 2 more variables: ts_diameter <dbl>,
+## #   hu_diameter <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write.table}\NormalTok{(sorted, }\AttributeTok{file=}\StringTok{"q1\_3.txt"}\NormalTok{, }\AttributeTok{append =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{sep =} \StringTok{" "}\NormalTok{, }\AttributeTok{dec =} \StringTok{"."}\NormalTok{,}
+            \AttributeTok{row.names =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{col.names =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{plot-the-coordinates-lat-long-of-the-place-storms-occurred}{%
+\paragraph{plot the coordinates (lat, long) of the place storms
+occurred}\label{plot-the-coordinates-lat-long-of-the-place-storms-occurred}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p}\OtherTok{=}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{storms)}\SpecialCharTok{+}\FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(long,lat))}
+\NormalTok{p}\SpecialCharTok{+}\FunctionTok{theme\_dark}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#map \textless{}{-} get\_stamenmap(bbox = c(left= {-}11 , bottom = {-}11 , right = 11 , top = {-}11 ), maptype = "terrain" , zoom = 5)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{also-color-them-based-on-the-status}{%
+\paragraph{also color them based on the
+status}\label{also-color-them-based-on-the-status}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ storms)}\SpecialCharTok{+}\FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{lat,}\AttributeTok{y=}\NormalTok{long,}\AttributeTok{color=}\NormalTok{status))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{statistics_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\hypertarget{heart-attack-prevention}{%
+\subsection{Heart Attack Prevention}\label{heart-attack-prevention}}
+
+\hypertarget{a-loading-the-data-set-and-getting-it-ready}{%
+\subsubsection{a: Loading the data set and getting it
+ready}\label{a-loading-the-data-set-and-getting-it-ready}}
+
+\hypertarget{load-the-data-set-from-had.txt}{%
+\paragraph{load the data set from
+``had.txt''}\label{load-the-data-set-from-had.txt}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heartAttackData }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(}\StringTok{"had.txt"}\NormalTok{, }\AttributeTok{header=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{i-separate-the-lastresult-column-and-store-it-in-a-variable-called-label.-store-the-first-6-columns-as-features.}{%
+\paragraph{i: Separate the last(result) column and store it in a
+variable called label. Store the first 6 columns as
+features.}\label{i-separate-the-lastresult-column-and-store-it-in-a-variable-called-label.-store-the-first-6-columns-as-features.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{label }\OtherTok{=}\NormalTok{ heartAttackData[,}\FunctionTok{ncol}\NormalTok{(heartAttackData)]}
+\NormalTok{features }\OtherTok{=}\NormalTok{ heartAttackData[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ii-separate-the-data-into-test20-and-train80-sets.}{%
+\paragraph{ii: separate the data into test(20\%) and train(80\%)
+sets.}\label{ii-separate-the-data-into-test20-and-train80-sets.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{=} \FunctionTok{length}\NormalTok{(label)}
+\NormalTok{test\_ind }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n, }\FunctionTok{as.integer}\NormalTok{(n }\SpecialCharTok{*} \FloatTok{0.2}\NormalTok{))}
+\NormalTok{test\_label }\OtherTok{=}\NormalTok{ label[test\_ind]}
+\NormalTok{test\_feature }\OtherTok{=}\NormalTok{ features[test\_ind,]}
+\NormalTok{train\_label }\OtherTok{=}\NormalTok{ label[}\SpecialCharTok{{-}}\NormalTok{test\_ind]}
+\NormalTok{train\_feature }\OtherTok{=}\NormalTok{ features[}\SpecialCharTok{{-}}\NormalTok{test\_ind,]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{save-test-and-train-sets-in-separate-files}{%
+\paragraph{save test and train sets in separate
+files}\label{save-test-and-train-sets-in-separate-files}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write.table}\NormalTok{(test\_label, }\AttributeTok{file=}\StringTok{"test\_label.txt"}\NormalTok{)}
+\FunctionTok{write.table}\NormalTok{(test\_feature, }\AttributeTok{file=}\StringTok{"test\_feature.txt"}\NormalTok{)}
+\FunctionTok{write.table}\NormalTok{(train\_label, }\AttributeTok{file=}\StringTok{"train\_label.txt"}\NormalTok{)}
+\FunctionTok{write.table}\NormalTok{(train\_feature, }\AttributeTok{file=}\StringTok{"train\_feature.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b-regresssion}{%
+\subsubsection{b: regresssion}\label{b-regresssion}}
+
+\hypertarget{i-use-the-train-data-set-and-apply-regression-on-them-to-obtain-the-corresponding-coefficients.}{%
+\paragraph{i: use the train data set and apply regression on them to
+obtain the corresponding
+coefficients.}\label{i-use-the-train-data-set-and-apply-regression-on-them-to-obtain-the-corresponding-coefficients.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{as.vector}\NormalTok{(train\_label) }\SpecialCharTok{\textasciitilde{}}  \FunctionTok{as.vector}\NormalTok{(train\_feature[,}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{+} \FunctionTok{as.vector}\NormalTok{(train\_feature[,}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{+} \FunctionTok{as.vector}\NormalTok{(train\_feature[,}\DecValTok{3}\NormalTok{]) }\SpecialCharTok{+} \FunctionTok{as.vector}\NormalTok{(train\_feature[,}\DecValTok{4}\NormalTok{]) }\SpecialCharTok{+} \FunctionTok{as.vector}\NormalTok{(train\_feature[,}\DecValTok{5}\NormalTok{]) }\SpecialCharTok{+} \FunctionTok{as.vector}\NormalTok{(train\_feature[,}\DecValTok{6}\NormalTok{]))}
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = as.vector(train_label) ~ as.vector(train_feature[, 
+##     1]) + as.vector(train_feature[, 2]) + as.vector(train_feature[, 
+##     3]) + as.vector(train_feature[, 4]) + as.vector(train_feature[, 
+##     5]) + as.vector(train_feature[, 6]))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.1468 -0.5273 -0.0989  0.6321  1.8632 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                    2.097169   0.522210   4.016 7.96e-05 ***
+## as.vector(train_feature[, 1]) -0.016002   0.006136  -2.608  0.00969 ** 
+## as.vector(train_feature[, 2]) -0.576178   0.118823  -4.849 2.25e-06 ***
+## as.vector(train_feature[, 3])  0.434192   0.051099   8.497 2.22e-15 ***
+## as.vector(train_feature[, 4]) -0.006576   0.003232  -2.035  0.04301 *  
+## as.vector(train_feature[, 5]) -0.001210   0.001009  -1.199  0.23161    
+## as.vector(train_feature[, 6]) -0.106537   0.154481  -0.690  0.49110    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.825 on 236 degrees of freedom
+## Multiple R-squared:  0.3364, Adjusted R-squared:  0.3195 
+## F-statistic: 19.94 on 6 and 236 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\hypertarget{call-shows-us-the-formula-that-r-used-to-fit-the-regression-model.-label-is-our-dependent-variable-and-we-are-using-the-6-features-as-independent-variables-to-predict.}{%
+\subparagraph{Call: shows us the formula that R used to fit the
+regression model. label is our dependent variable and we are using the 6
+features as independent variables (to
+predict).}\label{call-shows-us-the-formula-that-r-used-to-fit-the-regression-model.-label-is-our-dependent-variable-and-we-are-using-the-6-features-as-independent-variables-to-predict.}}
+
+\hypertarget{residuals-the-residuals-are-the-difference-between-the-actual-values-and-the-predicted-ones.-wed-definitely-want-our-median-value-to-be-centered-around-zero-as-this-would-tell-us-our-residuals-were-somewhat-symmetrical-and-that-our-model-was-predicting-evenly-at-both-the-high-and-low-ends-of-our-dataset.-looking-at-the-output-above-it-looks-like-our-distribution-is-slightly-right-skewed-but-again-it-is-also-near-0-so-we-can-be-hopeful-that-our-model-is-predicting-quite-well.}{%
+\subparagraph{Residuals: The residuals are the difference between the
+actual values and the predicted ones. we'd definitely want our median
+value to be centered around zero as this would tell us our residuals
+were somewhat symmetrical and that our model was predicting evenly at
+both the high and low ends of our dataset. Looking at the output above,
+it looks like our distribution is slightly right-skewed but again it is
+also near 0 so we can be hopeful that our model is predicting quite
+well.}\label{residuals-the-residuals-are-the-difference-between-the-actual-values-and-the-predicted-ones.-wed-definitely-want-our-median-value-to-be-centered-around-zero-as-this-would-tell-us-our-residuals-were-somewhat-symmetrical-and-that-our-model-was-predicting-evenly-at-both-the-high-and-low-ends-of-our-dataset.-looking-at-the-output-above-it-looks-like-our-distribution-is-slightly-right-skewed-but-again-it-is-also-near-0-so-we-can-be-hopeful-that-our-model-is-predicting-quite-well.}}
+
+\hypertarget{coefficients-these-are-estimations-of-coefficients-in-the-equation-of-form-labelc_1-f_1c_2-f_2c_3-f_3c_4-f_4c_5-f_5c_6-f_6c_7-where-c_7-is-the-intercept-and-c_is-are-the-coefficientslope-of-each-factor.-because-we-often-dont-have-enough-information-or-data-to-know-the-exact-equation-that-exists-in-the-wild-we-have-to-build-this-equation-by-generating-estimates-for-both-the-slopes-and-the-intercept.-these-estimates-are-most-often-generated-through-the-ordinary-least-squares-where-regression-model-finds-the-line-that-fits-the-points-in-such-a-way-that-it-minimizes-the-distance-between-each-point-and-the-line.}{%
+\subparagraph{\texorpdfstring{Coefficients: These are estimations of
+coefficients in the equation of form
+\(label=c_1 * f_1+c_2 * f_2+c_3 * f_3+c_4 * f_4+c_5 * f_5+c_6 * f_6+c_7\),
+where \(c_7\) is the intercept and \(c_i\)s are the coefficient(slope)
+of each factor. Because we often don't have enough information or data
+to know the exact equation that exists in the wild, we have to build
+this equation by generating estimates for both the slopes and the
+intercept. These estimates are most often generated through the ordinary
+least squares (where regression model finds the line that fits the
+points in such a way that it minimizes the distance between each point
+and the
+line).}{Coefficients: These are estimations of coefficients in the equation of form label=c\_1 * f\_1+c\_2 * f\_2+c\_3 * f\_3+c\_4 * f\_4+c\_5 * f\_5+c\_6 * f\_6+c\_7, where c\_7 is the intercept and c\_is are the coefficient(slope) of each factor. Because we often don't have enough information or data to know the exact equation that exists in the wild, we have to build this equation by generating estimates for both the slopes and the intercept. These estimates are most often generated through the ordinary least squares (where regression model finds the line that fits the points in such a way that it minimizes the distance between each point and the line).}}\label{coefficients-these-are-estimations-of-coefficients-in-the-equation-of-form-labelc_1-f_1c_2-f_2c_3-f_3c_4-f_4c_5-f_5c_6-f_6c_7-where-c_7-is-the-intercept-and-c_is-are-the-coefficientslope-of-each-factor.-because-we-often-dont-have-enough-information-or-data-to-know-the-exact-equation-that-exists-in-the-wild-we-have-to-build-this-equation-by-generating-estimates-for-both-the-slopes-and-the-intercept.-these-estimates-are-most-often-generated-through-the-ordinary-least-squares-where-regression-model-finds-the-line-that-fits-the-points-in-such-a-way-that-it-minimizes-the-distance-between-each-point-and-the-line.}}
+
+estimations of each one of \(c_i\)s described above are as follows:
+
+\(c_1=-0.0214786\), \(c_2=-0.6194578\), \(c_3=0.4163637\),
+\(c_4=-0.0087373\), \(c_5=-0.0003125\), \(c_6=0.0893647\),
+\(c_7=2.4708939\)
+
+To ilustrate this in our example, I constructed a data frame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# label=as.vector(train\_label)}
+\CommentTok{\# f1=as.vector(train\_feature[, 1])}
+\CommentTok{\# f2=as.vector(train\_feature[, 2])}
+\CommentTok{\# f3=as.vector(train\_feature[, 3])}
+\CommentTok{\# f4=as.vector(train\_feature[, 4])}
+\CommentTok{\# f5=as.vector(train\_feature[, 5])}
+\CommentTok{\# f6=as.vector(train\_feature[, 6])}
+\CommentTok{\# class\_df = data.frame(label, f1, f2, f3, f4, f5, f6, stringsAsFactors = F) }
+\CommentTok{\# }
+\CommentTok{\# ggplt \textless{}{-} ggplot(class\_df,aes(x=,y=age,shape=Tree))+}
+\CommentTok{\#          geom\_point()+}
+\CommentTok{\#          theme\_classic()}
+\CommentTok{\#   }
+\CommentTok{\# ggplt}
+\CommentTok{\#   }
+\CommentTok{\# \# Plotting multiple Regression Lines}
+\CommentTok{\# ggplt+geom\_smooth(method=lm,se=FALSE,fullrange=TRUE,}
+\CommentTok{\#                   aes(color=Tree))}
+\end{Highlighting}
+\end{Shaded}
+
+Coefficients --- Std. Error: The standard error of the coefficient is an
+estimate of the standard deviation of the coefficient. In effect, it is
+telling us how much uncertainty there is with our coefficient. The
+standard error is often used to create confidence intervals.
+
+Coefficients --- t value: The t-statistic is simply the coefficient
+divided by the standard error. In general, we want our coefficients to
+have large t-statistics.
+
+Coefficients --- Pr(\textgreater\textbar t\textbar) and Signif. codes
+The p-value is calculated using the t-statistic from the T distribution.
+The p-value, in association with the t-statistic, help us to understand
+how significant our coefficient is to the model. In practice, any
+p-value below 0.05 is usually deemed as significant. The coefficient
+codes give us a quick way to visually see which coefficients are
+significant to the model.
+
+\hypertarget{residual-standard-error-the-residual-standard-error-is-a-measure-of-how-well-the-model-fits-the-data.the-residual-standard-error-tells-us-the-average-amount-that-the-actual-values-of-y-differ-from-the-predictions.-in-general-we-want-the-smallest-residual-standard-error-possible.}{%
+\subparagraph{Residual standard error: The residual standard error is a
+measure of how well the model fits the data.The residual standard error
+tells us the average amount that the actual values of Y differ from the
+predictions. In general, we want the smallest residual standard error
+possible.}\label{residual-standard-error-the-residual-standard-error-is-a-measure-of-how-well-the-model-fits-the-data.the-residual-standard-error-tells-us-the-average-amount-that-the-actual-values-of-y-differ-from-the-predictions.-in-general-we-want-the-smallest-residual-standard-error-possible.}}
+
+\hypertarget{multiple-r-squared-and-adjusted-r-squared-the-multiple-r-squared-value-is-most-often-used-for-simple-linear-regression-one-predictor.-it-tells-us-what-percentage-of-the-variation-within-our-dependent-variable-that-the-independent-variable-is-explaining.-its-another-method-to-determine-how-well-our-model-is-fitting-the-data.-which-in-our-example-is-a-bit-high-and-shows-that-our-model-isnt-fitting-the-data-very-well.-the-adjusted-r-squared-value-is-used-when-running-multiple-linear-regression-and-can-conceptually-be-thought-of-in-the-same-way-we-described-multiple-r-squared.-the-adjusted-r-squared-value-shows-what-percentage-of-the-variation-within-our-dependent-variable-that-all-predictors-are-explaining.-which-is-also-32-in-this-example-and-considered-to-be-almost-high.}{%
+\subparagraph{Multiple R-squared and Adjusted R-squared: The Multiple
+R-squared value is most often used for simple linear regression (one
+predictor). It tells us what percentage of the variation within our
+dependent variable that the independent variable is explaining. it's
+another method to determine how well our model is fitting the data.
+Which in our example is a bit high and shows that our model isn't
+fitting the data very well. The Adjusted R-squared value is used when
+running multiple linear regression and can conceptually be thought of in
+the same way we described Multiple R-squared. The Adjusted R-squared
+value shows what percentage of the variation within our dependent
+variable that all predictors are explaining. Which is also 32\% in this
+example and considered to be almost
+high.}\label{multiple-r-squared-and-adjusted-r-squared-the-multiple-r-squared-value-is-most-often-used-for-simple-linear-regression-one-predictor.-it-tells-us-what-percentage-of-the-variation-within-our-dependent-variable-that-the-independent-variable-is-explaining.-its-another-method-to-determine-how-well-our-model-is-fitting-the-data.-which-in-our-example-is-a-bit-high-and-shows-that-our-model-isnt-fitting-the-data-very-well.-the-adjusted-r-squared-value-is-used-when-running-multiple-linear-regression-and-can-conceptually-be-thought-of-in-the-same-way-we-described-multiple-r-squared.-the-adjusted-r-squared-value-shows-what-percentage-of-the-variation-within-our-dependent-variable-that-all-predictors-are-explaining.-which-is-also-32-in-this-example-and-considered-to-be-almost-high.}}
+
+\hypertarget{the-f-statistic-and-overall-p-value-help-us-determine-the-result-of-this-test.-if-you-have-a-lot-of-independent-variables-its-common-for-an-f-statistic-to-be-close-to-one-and-to-still-produce-a-p-value-where-we-would-reject-the-null-hypothesis.-however-for-smaller-models-a-larger-f-statistic-generally-indicates-that-the-null-hypothesis-should-be-rejected.}{%
+\subparagraph{The F-statistic and overall p-value help us determine the
+result of this test. If you have a lot of independent variables, it's
+common for an F-statistic to be close to one and to still produce a
+p-value where we would reject the null hypothesis. However, for smaller
+models, a larger F-statistic generally indicates that the null
+hypothesis should be
+rejected.}\label{the-f-statistic-and-overall-p-value-help-us-determine-the-result-of-this-test.-if-you-have-a-lot-of-independent-variables-its-common-for-an-f-statistic-to-be-close-to-one-and-to-still-produce-a-p-value-where-we-would-reject-the-null-hypothesis.-however-for-smaller-models-a-larger-f-statistic-generally-indicates-that-the-null-hypothesis-should-be-rejected.}}
+
+\hypertarget{ii-indentify-the-importance-of-coeffs}{%
+\paragraph{ii: Indentify the importance of
+coeffs:}\label{ii-indentify-the-importance-of-coeffs}}
+
+\hypertarget{althogh-the-coeffs-show-us-the-amount-of-importance-we-can-not-just-compare-their-amounts-with-each-other-since-they-dont-have-the-same-scales-they-are-not-scaled-the-same.-we-should-first-normalize-them-for-example-between-0-and-1-and-then-compare-them-with-each-other.}{%
+\subparagraph{Althogh the coeffs show us the amount of importance, we
+can not just compare their amounts with each other since they don't have
+the same scales they are not scaled the same. We should first normalize
+them (for example between 0 and 1) and then compare them with each
+other.}\label{althogh-the-coeffs-show-us-the-amount-of-importance-we-can-not-just-compare-their-amounts-with-each-other-since-they-dont-have-the-same-scales-they-are-not-scaled-the-same.-we-should-first-normalize-them-for-example-between-0-and-1-and-then-compare-them-with-each-other.}}
+
+\hypertarget{regression-analysis-is-a-form-of-inferential-statistics.-the-p-values-help-determine-whether-the-relationships-that-you-observe-in-your-sample-also-exist-in-the-larger-population.-the-p-value-for-each-independent-variable-tests-the-null-hypothesis-that-the-variable-has-no-correlation-with-the-dependent-variable.-if-there-is-no-correlation-there-is-no-association-between-the-changes-in-the-independent-variable-and-the-shifts-in-the-dependent-variable.}{%
+\subparagraph{Regression analysis is a form of inferential statistics.
+The p-values help determine whether the relationships that you observe
+in your sample also exist in the larger population. The p-value for each
+independent variable tests the null hypothesis that the variable has no
+correlation with the dependent variable. If there is no correlation,
+there is no association between the changes in the independent variable
+and the shifts in the dependent
+variable.}\label{regression-analysis-is-a-form-of-inferential-statistics.-the-p-values-help-determine-whether-the-relationships-that-you-observe-in-your-sample-also-exist-in-the-larger-population.-the-p-value-for-each-independent-variable-tests-the-null-hypothesis-that-the-variable-has-no-correlation-with-the-dependent-variable.-if-there-is-no-correlation-there-is-no-association-between-the-changes-in-the-independent-variable-and-the-shifts-in-the-dependent-variable.}}
+
+\hypertarget{if-the-p-value-for-a-variable-is-less-than-your-significance-level-your-sample-data-provide-enough-evidence-to-reject-the-null-hypothesis-for-the-entire-population.-on-the-other-hand-a-p-value-that-is-greater-than-the-significance-level-indicates-that-there-is-insufficient-evidence-in-your-sample-to-conclude-that-a-non-zero-correlation-exists.}{%
+\subparagraph{If the p-value for a variable is less than your
+significance level, your sample data provide enough evidence to reject
+the null hypothesis for the entire population. On the other hand, a
+p-value that is greater than the significance level indicates that there
+is insufficient evidence in your sample to conclude that a non-zero
+correlation
+exists.}\label{if-the-p-value-for-a-variable-is-less-than-your-significance-level-your-sample-data-provide-enough-evidence-to-reject-the-null-hypothesis-for-the-entire-population.-on-the-other-hand-a-p-value-that-is-greater-than-the-significance-level-indicates-that-there-is-insufficient-evidence-in-your-sample-to-conclude-that-a-non-zero-correlation-exists.}}
+
+\hypertarget{recall-the-p-value-in-the-coefficients-part-for-our-example}{%
+\subparagraph{Recall the p-value in the coefficients part for our
+example:}\label{recall-the-p-value-in-the-coefficients-part-for-our-example}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = as.vector(train_label) ~ as.vector(train_feature[, 
+##     1]) + as.vector(train_feature[, 2]) + as.vector(train_feature[, 
+##     3]) + as.vector(train_feature[, 4]) + as.vector(train_feature[, 
+##     5]) + as.vector(train_feature[, 6]))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.1468 -0.5273 -0.0989  0.6321  1.8632 
+## 
+## Coefficients:
+##                                Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                    2.097169   0.522210   4.016 7.96e-05 ***
+## as.vector(train_feature[, 1]) -0.016002   0.006136  -2.608  0.00969 ** 
+## as.vector(train_feature[, 2]) -0.576178   0.118823  -4.849 2.25e-06 ***
+## as.vector(train_feature[, 3])  0.434192   0.051099   8.497 2.22e-15 ***
+## as.vector(train_feature[, 4]) -0.006576   0.003232  -2.035  0.04301 *  
+## as.vector(train_feature[, 5]) -0.001210   0.001009  -1.199  0.23161    
+## as.vector(train_feature[, 6]) -0.106537   0.154481  -0.690  0.49110    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.825 on 236 degrees of freedom
+## Multiple R-squared:  0.3364, Adjusted R-squared:  0.3195 
+## F-statistic: 19.94 on 6 and 236 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\hypertarget{we-can-see-that-f5-and-f4-are-fairly-large-compared-to-a-0.05-significance-level-and-maybe-we-should-reconsider-using-them.}{%
+\subparagraph{We can see that f5 and f4 are fairly large compared to a
+0.05 significance level and maybe we should reconsider using
+them.}\label{we-can-see-that-f5-and-f4-are-fairly-large-compared-to-a-0.05-significance-level-and-maybe-we-should-reconsider-using-them.}}
+
+\hypertarget{b-evaluate-the-coeffs-on-test-set}{%
+\subsubsection{b: evaluate the coeffs on test
+set}\label{b-evaluate-the-coeffs-on-test-set}}
+
+\hypertarget{apply-the-coeffs-on-test-c_1-0.0214786-c_2-0.6194578-c_30.4163637-c_4-0.0087373-c_5-0.0003125-c_60.0893647-c_72.4708939}{%
+\paragraph{\texorpdfstring{apply the coeffs on test (\(c_1=-0.0214786\),
+\(c_2=-0.6194578\), \(c_3=0.4163637\), \(c_4=-0.0087373\),
+\(c_5=-0.0003125\), \(c_6=0.0893647\),
+\(c_7=2.4708939\)):}{apply the coeffs on test (c\_1=-0.0214786, c\_2=-0.6194578, c\_3=0.4163637, c\_4=-0.0087373, c\_5=-0.0003125, c\_6=0.0893647, c\_7=2.4708939):}}\label{apply-the-coeffs-on-test-c_1-0.0214786-c_2-0.6194578-c_30.4163637-c_4-0.0087373-c_5-0.0003125-c_60.0893647-c_72.4708939}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test\_result }\OtherTok{=}\NormalTok{ test\_feature[,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{*{-}}\FloatTok{0.0214786} \SpecialCharTok{+}\NormalTok{ test\_feature[,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*{-}}\FloatTok{0.6194578} \SpecialCharTok{+}
+\NormalTok{              test\_feature[,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{*}\FloatTok{0.4163637} \SpecialCharTok{+}\NormalTok{ test\_feature[,}\DecValTok{4}\NormalTok{]}\SpecialCharTok{*{-}}\FloatTok{0.0087373} \SpecialCharTok{+}
+\NormalTok{              test\_feature[,}\DecValTok{5}\NormalTok{]}\SpecialCharTok{*{-}}\FloatTok{0.0003125} \SpecialCharTok{+}\NormalTok{ test\_feature[,}\DecValTok{6}\NormalTok{]}\SpecialCharTok{*}\FloatTok{0.0893647} \SpecialCharTok{+} \FloatTok{2.4708939}
+\NormalTok{test\_result}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] -0.3453556  0.7286630  0.6886016  0.2739051 -0.1925273  1.0273435
+##  [7]  0.5794427 -0.3060210  0.5793205  1.0675492 -0.0095170  0.5734543
+## [13]  0.2248595  1.1167110  0.0277236 -0.2011404  0.1208081 -0.7090025
+## [19] -0.1162878  0.0916379 -0.2001619  0.3900982  0.0875127 -0.4515918
+## [25]  0.2386099  1.3932496  0.2041615 -0.7062362  0.8463936 -0.1677513
+## [31] -0.6246308 -0.6063178  0.0578404  1.0243257 -0.4319758 -0.7520644
+## [37]  0.6921840  0.3372660 -0.6100674 -0.8153164  0.6075418 -0.5487570
+## [43] -0.3159037 -0.7892927 -0.3441988 -0.0036256  0.5304436  0.7539116
+## [49]  0.3133654  0.2011934 -0.0519208  0.1144130 -0.3485869  0.9559737
+## [55] -0.6580437 -0.1759322  0.4482741  0.4562080  1.0508620  0.7468383
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{apply\_limit }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(result, limit)\{}
+\NormalTok{  result[result }\SpecialCharTok{\textgreater{}}\NormalTok{ limit] }\OtherTok{=} \DecValTok{1}
+\NormalTok{  result[result }\SpecialCharTok{\textless{}=}\NormalTok{ limit] }\OtherTok{=} \SpecialCharTok{{-}}\DecValTok{1}
+  \FunctionTok{return}\NormalTok{(result)}
+\NormalTok{\}}
+\NormalTok{test\_result }\OtherTok{=} \FunctionTok{apply\_limit}\NormalTok{(test\_result, }\AttributeTok{limit =} \DecValTok{0}\NormalTok{)}
+\NormalTok{test\_result}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] -1  1  1  1 -1  1  1 -1  1  1 -1  1  1  1  1 -1  1 -1 -1  1 -1  1  1 -1  1
+## [26]  1  1 -1  1 -1 -1 -1  1  1 -1 -1  1  1 -1 -1  1 -1 -1 -1 -1 -1  1  1  1  1
+## [51] -1  1 -1  1 -1 -1  1  1  1  1
+\end{verbatim}
+
+\hypertarget{compare-the-test_result-with-actual-labels-to-see-how-many-are-correct}{%
+\subparagraph{compare the test\_result with actual labels to see how
+many are
+correct:}\label{compare-the-test_result-with-actual-labels-to-see-how-many-are-correct}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{check\_correctness }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(result)\{}
+\NormalTok{  corrects }\OtherTok{=} \DecValTok{0}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(test\_result)) \{}
+    \ControlFlowTok{if}\NormalTok{ (test\_result[i] }\SpecialCharTok{==}\NormalTok{ test\_label[i]) \{}
+\NormalTok{      corrects }\OtherTok{=}\NormalTok{ corrects }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  \FunctionTok{return}\NormalTok{(corrects}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(test\_result))}
+\NormalTok{\}}
+
+\FunctionTok{check\_correctness}\NormalTok{(test\_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7666667
+\end{verbatim}
+
+\hypertarget{ii-find-the-maximum-correcness-rate-for-different-values-of-limit-in--2-2}{%
+\paragraph{ii: find the maximum correcness rate for different values of
+limit in {[}-2,
+2{]}:}\label{ii-find-the-maximum-correcness-rate-for-different-values-of-limit-in--2-2}}
+
+\end{document}

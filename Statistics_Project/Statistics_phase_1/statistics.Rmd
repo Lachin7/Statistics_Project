@@ -1,0 +1,466 @@
+---
+title: "statistics"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(rcompanion)
+library(fastR2)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(readxl)
+library(sjmisc)
+library(writexl)
+```
+### Lachin Naghashyar - 98110179
+##  Q1: Working with data in R environment
+### a: consider Chi-Square distribution 
+#### i: The density function of it is shown below:
+
+
+```{r cars}
+curve(dchisq(x, df = 11), from = 0, to = 100,
+      main = 'Chi-Square Distribution (df = 11)', #title
+      ylab = 'Density')
+```
+
+#### ii: Let's produce n = 10, 100 and 1000 samples of size 50 from this distribution. To do so, we generate n * 50 samples and store them in a matrix with n rows and  50 columns. 
+
+##### for n = 10:
+
+```{r}
+samples_1 = rchisq(500, df = 11)
+matrix_1 =  matrix(samples_1, nrow = 10, ncol = 50)
+```
+
+##### for n = 100:
+
+```{r}
+samples_2 = rchisq(5000, df = 11)
+matrix_2 =  matrix(samples_2, nrow = 100, ncol = 50)
+```
+
+##### for n = 1000:
+
+```{r}
+samples_3 = rchisq(50000, df = 11)
+matrix_3 =  matrix(samples_3, nrow = 1000, ncol = 50)
+```
+
+
+##### Then calculate the means of each of them and plot their histograms (note that we should calculate the sample means of each row):
+
+```{r}
+means_1 = apply(matrix_1, 1, mean) # use 1 to apply it row wise
+means_2 = apply(matrix_2, 1, mean)
+means_3 = apply(matrix_3, 1, mean)
+```
+
+##### plot the histograms with hist function
+```{r}
+hist(means_1)
+hist(means_2)
+hist(means_3)
+
+```
+
+#### iii: Let's calculate the mean and variance of these samples and compare the histogram of their means with the normal distribution:
+
+```{r}
+mean_1 = mean(means_1)
+mean_2 = mean(means_2)
+mean_3 = mean(means_3)
+mean_1
+mean_2
+mean_3
+var_1 = var(means_1)
+var_2 = var(means_2)
+var_3 = var(means_3)
+var_1
+var_2
+var_3
+```
+##### Next, normalize the means:
+
+```{r}
+normalized_mean_1 = (means_1 - mean_1)/sqrt(var_1)
+normalized_mean_2 = (means_2 - mean_2)/sqrt(var_2)
+normalized_mean_3 = (means_3 - mean_3)/sqrt(var_3)
+```
+
+##### comapre their histogram with the normal dirtribution's hist:
+
+```{r}
+#hist(normalized_mean_1)
+#lines(seq(-2, 1.5, by=.001), dnorm(seq(-2, 1.5, by=.001), mean_1, sqrt(var_1)), col="blue")
+#hist(normalized_mean_2)
+#lines(seq(-3, 2.5, by=.1), dnorm(seq(-3, 2.5, by=.1), mean_2, sqrt(var_2)), col="blue")
+#hist(normalized_mean_3)
+#lines(seq(-4, 4, by=.1), dnorm(seq(-4, 4, by=.1), mean_3, sqrt(var_3)), col="blue")
+plotNormalHistogram( normalized_mean_1, prob = FALSE, length = 1000 )
+plotNormalHistogram( normalized_mean_2, prob = FALSE, length = 1000 )
+plotNormalHistogram( normalized_mean_3, prob = FALSE, length = 1000 )
+```
+
+##### we can see that as the n gets larger, the corresponding histogram gets more similar to the histogram of normal distribution. This results is aligned with the central limit theorem which states that if you have a population with mean μ and standard deviation σ and take sufficiently large random samples from the population with replacement , then the distribution of the sample means will be approximately normally distributed.
+
+
+
+### b: consider the Births data set from fastR2 package (contains information about the number of birth in each day during a time interval of 20 years in America)
+#### i: Find the days with least and most number of average births:
+##### first let's view Births
+```{r}
+View(Births)
+```
+##### we can see that it has a column births and data in it. We iterate over the days in those years, find the mean number of births and use which to indicate the place min/max occurs.
+```{r}
+days_avr <- matrix(0, 1, 365)
+for (i in 1:365) {
+  days_avr[i] = mean(Births$births[Births$day_of_year == i])
+}
+
+which.min(days_avr)
+which.max(days_avr)
+```
+#### the mean value of each month is obtained as follows:
+```{r}
+months_means <- matrix(0, 1, 12)
+for (i in 1:12) {
+  months_means[i] = mean(Births$births[Births$month == i])
+}
+months_means
+```
+##### also lets sort the array obove (ascending):
+```{r}
+order(months_means)
+```
+##### to have it descending consider 
+
+```{r}
+order(-months_means)
+```
+#### also find the average value of each year this way:
+```{r}
+years_avr <- matrix(0, 1, 20)
+
+for (i in 1:20) {
+  years_avr[i] = mean(Births$births[Births$year == i + 1968])
+}
+years_avr
+# plot the result
+ggplot(data=data.frame(u=1969:1988,v=as.vector(years_avr))
+       ,aes(x=u,y=v))+geom_bar(stat = "identity")
+
+```
+
+### c: consider the storms data set from dplyr package.
+```{r}
+View(storms)
+```
+#### sort them based on the time they occured and save them in a file (q1_3.txt)
+```{r}
+sorted = 
+  storms[with(storms, order(storms$year, storms$month, storms$day , storms$hour)),]
+sorted
+write.table(sorted, file="q1_3.txt", append = FALSE, sep = " ", dec = ".",
+            row.names = TRUE, col.names = TRUE)
+```
+
+#### plot the coordinates (lat, long) of the place storms occurred
+
+```{r}
+p=ggplot(data=storms)+geom_point(aes(lat,long))
+p+theme_dark()
+
+
+#map <- get_stamenmap(bbox = c(left= -11 , bottom = -11 , right = 11 , top = -11 ), maptype = "terrain" , zoom = 5)
+```
+#### also color them based on the status
+
+```{r}
+ggplot(data = storms)+geom_point(mapping = aes(x=long,y=lat,color=status))
+
+```
+
+##  Q2: Heart Attack Prevention
+### a: Loading the data set and getting it ready
+#### load the data set from "had.txt"
+```{r}
+heartAttackData <- read.delim("had.txt", header=F)
+```
+
+#### i: Separate the last(result) column and store it in a variable called label. Store the first 6 columns as features.
+
+```{r}
+label = heartAttackData[,ncol(heartAttackData)]
+features = heartAttackData[,1:6]
+```
+
+#### ii: separate the data into test(20%) and train(80%) sets.
+
+```{r}
+n = length(label)
+test_ind <- sample(1:n, as.integer(n * 0.2))
+test_label = label[test_ind]
+test_feature = features[test_ind,]
+train_label = label[-test_ind]
+train_feature = features[-test_ind,]
+
+```
+
+#### save test and train sets in separate files
+
+```{r}
+write.table(test_label, file="test_label.txt")
+write.table(test_feature, file="test_feature.txt")
+write.table(train_label, file="train_label.txt")
+write.table(train_feature, file="train_feature.txt")
+```
+
+### b: regresssion
+
+#### i: use the train data set and apply regression on them to obtain the corresponding coefficients.
+
+```{r}
+model <- lm(as.vector(train_label) ~  as.vector(train_feature[,1]) + as.vector(train_feature[,2]) + as.vector(train_feature[,3]) + as.vector(train_feature[,4]) + as.vector(train_feature[,5]) + as.vector(train_feature[,6]))
+summary(model)
+```
+##### Call: shows us the formula that R used to fit the regression model. label is our dependent variable and we are using the 6 features as independent variables (to predict).
+
+##### Residuals: The residuals are the difference between the actual values and the predicted ones.  we’d definitely want our median value to be centered around zero as this would tell us our residuals were somewhat symmetrical and that our model was predicting evenly at both the high and low ends of our dataset. Looking at the output above, it looks like our distribution is slightly right-skewed but again it is also near 0 so we can be hopeful that our model is predicting quite well.
+
+##### Coefficients: These are estimations of coefficients in the equation of form $label=c_1 * f_1+c_2 * f_2+c_3 * f_3+c_4 * f_4+c_5 * f_5+c_6 * f_6+c_7$, where $c_7$ is the intercept and $c_i$s are the coefficient(slope) of each factor. Because we often don’t have enough information or data to know the exact equation that exists in the wild, we have to build this equation by generating estimates for both the slopes and the intercept. These estimates are most often generated through the ordinary least squares (where regression model finds the line that fits the points in such a way that it minimizes the distance between each point and the line).
+
+###### estimations of each one of $c_i$s described above are as follows:
+###### $c_1=-0.0214786$, $c_2=-0.6194578$, $c_3=0.4163637$, $c_4=-0.0087373$, $c_5=-0.0003125$, $c_6=0.0893647$, $c_7=2.4708939$
+
+
+###### Coefficients — Std. Error: The standard error of the coefficient is an estimate of the standard deviation of the coefficient. In effect, it is telling us how much uncertainty there is with our coefficient. The standard error is often used to create confidence intervals.
+
+###### Coefficients — t value: The t-statistic is simply the coefficient divided by the standard error. In general, we want our coefficients to have large t-statistics.
+
+###### Coefficients — Pr(>|t|) and Signif. codes The p-value is calculated using the t-statistic from the T distribution. The p-value, in association with the t-statistic, help us to understand how significant our coefficient is to the model. In practice, any p-value below 0.05 is usually deemed as significant. The coefficient codes give us a quick way to visually see which coefficients are significant to the model. 
+
+##### Residual standard error: The residual standard error is a measure of how well the model fits the data.The residual standard error tells us the average amount that the actual values of Y differ from the predictions. In general, we want the smallest residual standard error possible.
+
+##### Multiple R-squared and Adjusted R-squared: The Multiple R-squared value is most often used for simple linear regression (one predictor). It tells us what percentage of the variation within our dependent variable that the independent variable is explaining. it’s another method to determine how well our model is fitting the data. The Adjusted R-squared value is used when running multiple linear regression and can conceptually be thought of in the same way we described Multiple R-squared. The Adjusted R-squared value shows what percentage of the variation within our dependent variable that all predictors are explaining. 
+
+##### The F-statistic and overall p-value help us determine the result of this test. If you have a lot of independent variables, it’s common for an F-statistic to be close to one and to still produce a p-value where we would reject the null hypothesis. However, for smaller models, a larger F-statistic generally indicates that the null hypothesis should be rejected.
+
+#### ii: Identify the importance of coeffs:
+##### Although the coeffs show us the amount of importance, we can not just compare their amounts with each other since they don't have the same scales they are not scaled the same. We should first normalize them (for example between 0 and 1) and then compare them with each other. 
+##### Regression analysis is a form of inferential statistics. The p-values help determine whether the relationships that you observe in your sample also exist in the larger population. The p-value for each independent variable tests the null hypothesis that the variable has no correlation with the dependent variable. If there is no correlation, there is no association between the changes in the independent variable and the shifts in the dependent variable. 
+##### If the p-value for a variable is less than your significance level, your sample data provide enough evidence to reject the null hypothesis for the entire population. On the other hand, a p-value that is greater than the significance level indicates that there is insufficient evidence in your sample to conclude that a non-zero correlation exists.
+
+##### Recall the p-value in the coefficients part for our example:
+```{r}
+summary(model)
+```
+##### We can see that f5 and f4 are fairly large compared to a 0.05 significance level and maybe we should reconsider using them.
+
+### b: evaluate the coeffs on test set
+#### apply the coeffs on test:
+```{r}
+test_result = test_feature[,1]*model$coefficients[2] + test_feature[,2]*model$coefficients[3] +
+              test_feature[,3]*model$coefficients[4] + test_feature[,4]*model$coefficients[5] +
+              test_feature[,5]*model$coefficients[6] + test_feature[,6]*model$coefficients[7] + model$coefficients[1]
+test_result
+apply_limit <- function(result, limit){
+  result[result > limit] = 1
+  result[result <= limit] = -1
+  return(result)
+}
+res_0 = apply_limit(test_result, limit = 0)
+res_0
+ 
+```
+##### compare the test_result with actual labels to see how many are correct:
+```{r}
+
+check_correctness <- function(result){
+  corrects = 0
+  for (i in 1:length(result)) {
+    if (result[i] == test_label[i]) {
+      corrects = corrects + 1
+    }
+  }
+  return(corrects/length(result))
+}
+
+check_correctness(res_0)
+```
+#### ii: find the maximum correcness rate for different values of limit in [-2, 2]:
+
+```{r}
+limit_seq = seq(-2, 2, by = 0.1)
+fracs = c()
+max_limit = 0
+max_val = 0
+for (i in limit_seq){
+  frac = check_correctness(apply_limit(test_result, limit = i))
+  fracs = c(fracs, frac)
+  if (frac > max_val) {
+    max_val = frac
+    max_limit = i
+  }
+}
+
+ggplot(data=data.frame(u=as.vector(limit_seq),v=fracs)
+       ,aes(x=u,y=v))+geom_bar(stat = "identity")
+print(max_val)
+print(max_limit)
+```
+##### hence we can see that the max occurs around zero.
+
+
+## Q3
+### a: 
+
+```{r}
+# read data from the file:
+housing_data <- read_excel("housing.xlsx", sheet = "price of land")
+
+```
+#### i: I started by calculating all the invalid entries in each column(the ones that were not in a numeric format or where NA or zero). Then I ignored the columns with large number of undefined entries(NAs). I used a threshold of 5 and deleted those columns using subset function. Also, for all the cells with a wrong format, I changed their contents to be NA. This way, they will get ignored in upcoming calculations.
+
+```{r}
+invalid_ones <- matrix(0, 1, ncol(housing_data))
+for (i in 2: ncol(housing_data)){
+  invalid_ones[i] = 0
+  for (j in 3: nrow(housing_data)){
+    if (is.na(suppressWarnings(as.numeric(as.character(housing_data[j, i])))) | is.na(housing_data[j, i]) | suppressWarnings(housing_data[j, i]==0)){
+      invalid_ones[i] = invalid_ones[i] + 1
+      housing_data[j, i] = NA
+    }
+  }
+}
+invalid_ones
+print(as.vector(which(invalid_ones > 5)))
+housing_data = subset(housing_data, select = -as.vector(which(invalid_ones > 5)))
+
+# iii: save the modified data set to a new file
+write_xlsx( housing_data, 
+            path = "housing_modified.xlsx",
+            col_names = TRUE,
+            format_headers = TRUE,
+            use_zip64 = FALSE)
+
+```
+
+#### ii: The reason why I decided to delete some of the columns and cells instead of substituting them with mean or similar data, was that when a data is unknown its better to ignore it. Specially that we have a large amount of data and ignoring a fraction of them wouldn't hurt so much. Also when too much data is missing for a variable, it's better to delete the variable, which was the case for the last columns. More on this topic can be found [here](https://towardsdatascience.com/all-about-missing-data-handling-b94b8b5d2184):
+
+
+
+
+### b: 
+```{r}
+k = 98110179%%22 
+k
+```
+```{r}
+
+price = housing_data[k+3, -1]
+time = rev(seq(2, 39, by=1))
+
+model <- lm(as.numeric(price) ~  time)
+summary(model)
+
+```
+
+```{r}
+ggplot(data=data.frame(u=time,v=as.numeric(price)), aes(x=u,y=v)) +
+  geom_point(color='red') +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+price = housing_data[-1, -1]
+time = rev(seq(2, 39, by=1))
+district = seq(2, 24, by=1)
+times = c()
+districts = c()
+prices = c()
+
+for (d in district){
+  for (t in time){
+    districts = c(districts, d)
+    prices = c(prices, as.numeric(housing_data[d, t]))
+  } 
+  times = c(times, as.vector(time))
+}
+
+
+model <- lm(prices ~  times + districts)
+summary(model)
+```
+
+```{r}
+time = rev(seq(2, 39, by=1))
+district = seq(1, 23, by=1)
+df = data.frame(p=prices, t=times)
+zeros = integer(length(prices))
+t = length(time)
+for (d in district) {
+  if (d != k+2) {
+    d_i = zeros
+    s = (d-1)*t
+    e = d*t
+    d_i[s:e] = d_i[s:e] + 1
+    df[paste0("dist",d)] = d_i
+  }
+}
+
+```
+
+
+```{r}
+model <- lm(p~., df)
+summary(model)
+```
+
+#### iv: The second approach is better. Because in the first one, we used numbers to indicate the district and also applied that number to the regression we used. Since there isn't any meaningful relation between a district and its number(name), it's better to keep its number out of our calculations. Hence, using separate indicators for each district, results in more reliable results. Moreover, we know that the Adjusted R-squared reflects the fit of the model, where a higher value generally indicates a better fit. We can see that it is higher in the second part, meaning it has generated a better fit.
+
+### c:
+
+```{r}
+k = 98110179%%33
+k
+```
+#### i: 
+##### winter of 90 is 0 since it is in the 35th column, we find th kth and kth+1 seasons using that:
+```{r}
+x_i = as.numeric(unlist(housing_data[-1,35-k]))
+y_i = as.numeric(unlist(housing_data[-1,35-k-1]))
+```
+##### calculate their means and variance:
+```{r}
+print(mean(x_i))
+print(mean(y_i))
+print(paste("difference between means", mean(x_i) - mean(y_i)))
+print(var(x_i))
+print(var(y_i))
+```
+##### find t and p values:
+```{r}
+print(t.test(x_i, y_i))
+```
+
+##### p-value is 0.8532 which is larger than 0.05 (significance level). So we can not reject the null hypothesis and say that the prices have changed.
+```{r}
+z_i = x_i - y_i
+print(t.test(z_i))
+z_i = x_i - y_i
+
+denum = sqrt(var(z_i) / length(z_i))
+
+p_value = pt(q = mean(z_i) / denum , df = length(z_i) - 1, lower.tail = T)
+print(p_value)
+```
+##### In this case, we can see that it has a much lower p-value which results in the rejection of the null hypothesis.
+##### The second approach is better because our goal is to evaluate the difference of prices in two consecutive seasons and by subtracting those two from each other, we are canceling out the role of districts (we don't want the effect of having differences between districts). Hence, it gives us a better results and the p-value is much lower.
